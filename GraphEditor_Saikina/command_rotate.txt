@@ -1,3 +1,0 @@
-rotate rect[34] 90
-rotate line[7] 90
-rotate ellipse[e3] 90

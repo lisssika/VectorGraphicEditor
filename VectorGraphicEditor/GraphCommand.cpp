@@ -1,28 +1,32 @@
-#pragma once
 #include "GraphCommand.h"
 #include "VectorFigure.h"
 #include"Vector2D.h"
+#include "DoubleIsEqual.h"
 
-TranslateCommand::TranslateCommand(IVectorFigure* const figure_, Vector2D dxdy_) :figure(figure_), dxdy(dxdy_) {}
-void TranslateCommand::redo() {
-	figure->translate(dxdy);
+TranslateCommand::TranslateCommand(IVectorFigure* const figure_, Vector2D dxdy_) :figure_(figure_), dxdy_(dxdy_) {}
+void TranslateCommand::redo() const {
+	figure_->translate(dxdy_);
 }
-void TranslateCommand::undo() {
-	figure->translate({ -dxdy.x_coord, -dxdy.y_coord });
-}
-
-ScaleCommand::ScaleCommand(IVectorFigure* const figure_, double sx_, double sy_) :figure(figure_), sx(sx_), sy(sy_) {}
-void ScaleCommand::redo() {
-	figure->scale(sx, sy);
-}
-void ScaleCommand::undo() {
-	figure->scale(1 / sx, 1 / sy);
+void TranslateCommand::undo() const {
+	figure_->translate({ -dxdy_.x, -dxdy_.y });
 }
 
-RotateCommand::RotateCommand(IVectorFigure* const figure_, double deg_) :figure(figure_), deg(deg_) {}
-void RotateCommand::redo() {
-	figure->rotate(deg);
+ScaleCommand::ScaleCommand(IVectorFigure* const figure, double sx, double sy) :figure_(figure), sx_(sx), sy_(sy) {}
+void ScaleCommand::redo() const {
+	figure_->scale(sx_, sy_);
 }
-void RotateCommand::undo() {
-	figure->rotate(-deg);
+void ScaleCommand::undo()const {
+	if(double_is_equal(sx_,0)||(double_is_equal(sy_, 0)))
+	{
+		throw std::runtime_error("Divided by zero. Scale can't be 0");
+	}
+	figure_->scale(1 / sx_, 1 / sy_);
+}
+
+RotateCommand::RotateCommand(IVectorFigure* const figure_, double deg_) :figure_(figure_), deg_(deg_) {}
+void RotateCommand::redo() const {
+	figure_->rotate(deg_);
+}
+void RotateCommand::undo()const {
+	figure_->rotate(-deg_);
 }

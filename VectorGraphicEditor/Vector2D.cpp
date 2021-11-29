@@ -1,31 +1,29 @@
-#pragma once
-#include "Vector2D.h"
+#define _USE_MATH_DEFINES
 #include <cmath>
-#include <fstream>
+#include "Vector2D.h"
 #include <ostream>
-#define PI 3.14159265 
 
-Vector2D::Vector2D(double x, double y) :x_coord(x), y_coord(y) {}
-Vector2D::Vector2D() : x_coord{ 0 }, y_coord{ 0 }{}
+Vector2D::Vector2D(double x, double y) :x(x), y(y) {}
+Vector2D::Vector2D() : x{ 0 }, y{ 0 }{}
 
-Vector2D Vector2D::operator+(Vector2D p) {
-	return{ x_coord + p.x_coord, y_coord + p.y_coord };
+Vector2D Vector2D::operator+(Vector2D const& p) const {
+	return{ x + p.x, y + p.y };
 }
-Vector2D Vector2D::operator-(Vector2D p) {
-	return{ x_coord - p.x_coord, y_coord - p.y_coord };
+Vector2D Vector2D::operator-(Vector2D const& p) const {
+	return{ x - p.x, y - p.y };
 }
-Vector2D Vector2D::operator*(double a) {
-	return { x_coord * a, y_coord * a };
+Vector2D Vector2D::operator*(double a) const {
+	return { x * a, y * a };
 }
 void Vector2D::rot(double deg) {
-	auto rad = deg * PI / 180;
-	double x_coord_ = std::round(x_coord * cos(rad) - y_coord * sin(rad)) * 1.e6 /1.e6;
-	double y_coord_ = std::round(x_coord * sin(rad) + y_coord * cos(rad) )* 1.e6 / 1.e6;
-	x_coord = x_coord_;
-	y_coord = y_coord_;
+	auto rad = deg * M_PI / 180;
+	double x_coordinate = std::round(x * cos(rad) - y * sin(rad)) * 1.e6 /1.e6;
+	double y_coordinate = std::round(x * sin(rad) + y * cos(rad) )* 1.e6 / 1.e6;
+	x = x_coordinate;
+	y = y_coordinate;
 }
 
 std::ostream& operator<<(std::ostream& out, Vector2D const& vector) {
-	out << vector.x_coord << " " << vector.y_coord ;
+	out << vector.x << " " << vector.y ;
 	return out;
 }

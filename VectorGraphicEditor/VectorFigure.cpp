@@ -1,32 +1,33 @@
 #include "VectorFigure.h"
 #include "Vector2D.h"
 #include <string>
+#include <fstream>
 
-IVectorFigure::IVectorFigure(std::string name_) : name(name_) {}
+IVectorFigure::IVectorFigure(std::string name) : name_(name) {}
 
 std::string IVectorFigure::get_name() const
 {
-	return name;
+	return name_;
 }
 
-Rect::Rect(std::string name_, Vector2D const& a_, Vector2D const& b_) : IVectorFigure(name_), a(a_), b(b_) {}
+Rect::Rect(std::string name, Vector2D const& a, Vector2D const& b) : IVectorFigure(name), a_(a), b_(b) {}
 
-void Rect::translate(Vector2D dxdy) {
-	a = a + dxdy;
-	b = b + dxdy;
+void Rect::translate(Vector2D const& dxdy) {
+	a_ = a_ + dxdy;
+	b_ = b_ + dxdy;
 }
 
 void Rect::scale(double sx, double sy) {
 	if (sx * sy != 0) {
-		Vector2D centr = (a + b) * 0.5;
-		Vector2D centr_to_a = a - centr;
-		Vector2D centr_to_b = b - centr;
-		centr_to_a.x_coord *= sx;
-		centr_to_a.y_coord *= sy;
-		centr_to_b.x_coord *= sx;
-		centr_to_b.y_coord *= sy;
-		a = centr + centr_to_a;
-		b = centr + centr_to_b;
+		Vector2D centr = (a_ + b_) * 0.5;
+		Vector2D centr_to_a = a_ - centr;
+		Vector2D centr_to_b = b_ - centr;
+		centr_to_a.x *= sx;
+		centr_to_a.y *= sy;
+		centr_to_b.x *= sx;
+		centr_to_b.y *= sy;
+		a_ = centr + centr_to_a;
+		b_ = centr + centr_to_b;
 	}
 	else
 	{
@@ -35,38 +36,38 @@ void Rect::scale(double sx, double sy) {
 }
 
 void Rect::rotate(double deg) {
-	Vector2D center_coord{ a.x_coord + (b.x_coord - a.x_coord) / 2,  a.y_coord + (b.y_coord - a.y_coord) / 2 };
-	Vector2D vector_cntr_a = center_coord - a;
-	Vector2D vector_cntr_b = center_coord - b;
+	Vector2D center_coord{ a_.x + (b_.x - a_.x) / 2,  a_.y + (b_.y - a_.y) / 2 };
+	Vector2D vector_cntr_a = center_coord - a_;
+	Vector2D vector_cntr_b = center_coord - b_;
 	vector_cntr_a.rot(deg);
 	vector_cntr_b.rot(deg);
-	a = center_coord + vector_cntr_a;
-	b = center_coord + vector_cntr_b;
+	a_ = center_coord + vector_cntr_a;
+	b_ = center_coord + vector_cntr_b;
 }
 
 
 std::ofstream& operator<<(std::ofstream& out, Rect const& rect) {
-	out << rect.get_name() << ' ' << (dynamic_cast<Rect const&> (rect).a) << ' ' << dynamic_cast<Rect const&> (rect).b << '\n';
+	out << rect.get_name() << ' ' << (dynamic_cast<Rect const&> (rect).a_) << ' ' << dynamic_cast<Rect const&> (rect).b_ << '\n';
 	return out;
 }
 
-Line::Line(std::string name_, Vector2D const& a_, Vector2D const& b_) :IVectorFigure(name_), a(a_), b(b_) {}
+Line::Line(std::string name_, Vector2D const& a_, Vector2D const& b_) :IVectorFigure(name_), a_(a_), b_(b_) {}
 
-void Line::translate(Vector2D dxdy_) {
-	a = a + dxdy_;
-	b = b + dxdy_;
+void Line::translate(Vector2D const& dxdy_) {
+	a_ = a_ + dxdy_;
+	b_ = b_ + dxdy_;
 }
 void Line::scale(double sx, double sy) {
 	if (sx * sy != 0) {
-		Vector2D centr = (a + b) * 0.5;
-		Vector2D centr_to_a = a - centr;
-		Vector2D centr_to_b = b - centr;
-		centr_to_a.x_coord *= sx;
-		centr_to_a.y_coord *= sy;
-		centr_to_b.x_coord *= sx;
-		centr_to_b.y_coord *= sy;
-		a = centr + centr_to_a;
-		b = centr + centr_to_b;
+		Vector2D centr = (a_ + b_) * 0.5;
+		Vector2D centr_to_a = a_ - centr;
+		Vector2D centr_to_b = b_ - centr;
+		centr_to_a.x *= sx;
+		centr_to_a.y *= sy;
+		centr_to_b.x *= sx;
+		centr_to_b.y *= sy;
+		a_ = centr + centr_to_a;
+		b_ = centr + centr_to_b;
 	}
 	else
 	{
@@ -74,31 +75,31 @@ void Line::scale(double sx, double sy) {
 	}
 }
 void Line::rotate(double deg) {
-	Vector2D center_coord{ a.x_coord + (b.x_coord - a.x_coord) / 2,  a.y_coord + (b.y_coord - a.y_coord) / 2 };
-	Vector2D vector_cntr_a = center_coord - a;
-	Vector2D vector_cntr_b = center_coord - b;
+	Vector2D center_coord{ a_.x + (b_.x - a_.x) / 2,  a_.y + (b_.y - a_.y) / 2 };
+	Vector2D vector_cntr_a = center_coord - a_;
+	Vector2D vector_cntr_b = center_coord - b_;
 	vector_cntr_a.rot(deg);
 	vector_cntr_b.rot(deg);
-	a = center_coord + vector_cntr_a;
-	b = center_coord + vector_cntr_b;
+	a_ = center_coord + vector_cntr_a;
+	b_ = center_coord + vector_cntr_b;
 }
 
 std::ofstream& operator<<(std::ofstream& out, Line const& line) {
-	out << line.get_name() << ' ' << (dynamic_cast<Line const&> (line).a) << ' ' << dynamic_cast<Line const&> (line).b << '\n';
+	out << line.get_name() << ' ' << (dynamic_cast<Line const&> (line).a_) << ' ' << dynamic_cast<Line const&> (line).b_ << '\n';
 	return out;
 }
 
-Ellipse::Ellipse(std::string name_, Vector2D const& center_, Vector2D const& a_, Vector2D const& b_) :IVectorFigure(name_), center(center_), a(a_), b(b_) {}
+Ellipse::Ellipse(std::string name_, Vector2D const& center_, Vector2D const& a_, Vector2D const& b_) :IVectorFigure(name_), center_(center_), a_(a_), b_(b_) {}
 
-void Ellipse::translate(Vector2D dxdy_) {
-		a = a + dxdy_;
-		b = b + dxdy_;
-		center = center + dxdy_;
+void Ellipse::translate(Vector2D const& dxdy) {
+		a_ = a_ + dxdy;
+		b_ = b_ + dxdy;
+		center_ = center_ + dxdy;
 	}
  void Ellipse::scale(double sx, double sy) {
 		if (sx * sy != 0) {
-			a = center+Vector2D{ (a - center).x_coord * sx, (a - center).y_coord * sy };
-			b = center+ Vector2D{ (b - center).x_coord * sx, (b - center).y_coord * sy };
+			a_ = center_+Vector2D{ (a_ - center_).x * sx, (a_ - center_).y * sy };
+			b_ = center_+ Vector2D{ (b_ - center_).x * sx, (b_ - center_).y * sy };
 		}
 		else
 		{
@@ -106,15 +107,15 @@ void Ellipse::translate(Vector2D dxdy_) {
 		}
 	}
 void Ellipse::rotate(double deg) {
-		Vector2D vector_cntr_a = a - center;
-		Vector2D vector_cntr_b = b - center;
+		Vector2D vector_cntr_a = a_ - center_;
+		Vector2D vector_cntr_b = b_ - center_;
 		vector_cntr_a.rot(deg);
 		vector_cntr_b.rot(deg);
-		a = center + vector_cntr_a;
-		b = center + vector_cntr_b;
+		a_ = center_ + vector_cntr_a;
+		b_ = center_ + vector_cntr_b;
 	}
 
 	std::ofstream& operator<<(std::ofstream& out, Ellipse const& ellipse) {
-		out << ellipse.name << ' ' << dynamic_cast<Ellipse const&> (ellipse).center << ' ' << dynamic_cast<Ellipse const&> (ellipse).a << ' ' << dynamic_cast<Ellipse const&> (ellipse).b << '\n';
+		out << ellipse.name_ << ' ' << dynamic_cast<Ellipse const&> (ellipse).center_ << ' ' << dynamic_cast<Ellipse const&> (ellipse).a_ << ' ' << dynamic_cast<Ellipse const&> (ellipse).b_ << '\n';
 		return out;
 	}

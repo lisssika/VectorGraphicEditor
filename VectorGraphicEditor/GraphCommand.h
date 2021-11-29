@@ -4,36 +4,37 @@
 class IGraphCommand {
 public:
 
-	virtual void redo() = 0;
-	virtual void undo() = 0;
+	virtual void redo() const = 0;
+	virtual void undo() const = 0;
+	virtual ~IGraphCommand() = default;
 };
 
 class TranslateCommand final : public IGraphCommand {
 public:
 	TranslateCommand(IVectorFigure* const figure_, Vector2D dxdy_);
-	virtual void redo();
-	virtual void undo();
+	virtual void redo() const override;
+	virtual void undo() const override;
 private:
-	IVectorFigure* figure;
-	Vector2D dxdy;
+	IVectorFigure* figure_;
+	Vector2D dxdy_;
 };
 
 class ScaleCommand final : public IGraphCommand {
 public:
-	ScaleCommand(IVectorFigure* const figure_, double sx_, double sy_);
-	virtual void redo();
-	virtual void undo();
+	ScaleCommand(IVectorFigure* const figure, double sx, double sy);
+	virtual void redo() const override;
+	virtual void undo() const override;
 private:
-	IVectorFigure* figure;
-	double sx, sy;
+	IVectorFigure* figure_;
+	double sx_, sy_;
 };
 
 class RotateCommand final : public IGraphCommand {
 public:
 	RotateCommand(IVectorFigure* const figure_, double deg_);
-	virtual void redo();
-	virtual void undo();
+	virtual void redo() const override;
+	virtual void undo() const override;
 private:
-	IVectorFigure* figure;
-	double deg;
+	IVectorFigure* figure_;
+	double deg_;
 };

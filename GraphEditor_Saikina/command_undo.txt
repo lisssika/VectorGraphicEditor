@@ -1,6 +1,0 @@
-rotate rect[34] 90
-undo
-rotate line[7] 90
-undo 
-rotate ellipse[e3] 90
-undo 

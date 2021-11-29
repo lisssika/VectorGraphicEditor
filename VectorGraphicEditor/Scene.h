@@ -2,13 +2,13 @@
 #include <map>
 #include <string>
 #include "VectorFigure.h"
-class Scene {
+class Scene final {
 public:
-	void make_scene_from_file(std::string scene_file_name);
-	IVectorFigure* get_figure_by_name(std::string figure_name);
+	void make_scene_from_file(std::string const& scene_file_name);
+	IVectorFigure* get_figure_by_name(std::string const& figure_name);
 	friend std::ofstream& operator<< (std::ofstream& out, Scene const& scene);
-	void print_scene_in_file(std::string file_out_name);
+	void print_scene_in_file(std::string const& file_out_name) const;
 	~Scene();
 private:
-	std::map<std::string, IVectorFigure*> scene;
+	std::map<std::string, IVectorFigure*> scene_;
 };

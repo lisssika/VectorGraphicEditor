@@ -1,15 +1,11 @@
 #pragma once
 #include <string>
-#include <sstream>
 #include <stdexcept>
 #include <fstream>
-#include <utility>
-#include <algorithm>
-#include <map>
 #include "VectorFigure.h"
 #include <vector>
 
-class FileReader {
+class FileReader final{
 public:
 	FileReader(std::string const& file_name);
 	~FileReader();

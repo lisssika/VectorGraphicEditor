@@ -8,22 +8,23 @@
 
 void pars_command_line(std::stringstream& command_line, std::string& command, std::string& figure_name);
 
-class VectorGraphEditor {
+class VectorGraphEditor final
+{
 public:
 	VectorGraphEditor(
-		std::string const& scene_inp_file_name_,
-		std::string const& scene_out_file_name_,
-		std::string const& commands_file_name_
+		const std::string& scene_inp_file_name,
+		const std::string& scene_out_file_name,
+		const std::string& commands_file_name
 	);
 	void execute();
 
 	~VectorGraphEditor();
 
 private:
-	std::string scene_inp_file_name, scene_out_file_name, commands_file_name;
-	Scene scene;
-	std::vector<IGraphCommand*> history;
+	std::string scene_inp_file_name_, scene_out_file_name_, commands_file_name_;
+	Scene scene_;
+	std::vector<IGraphCommand*> history_;
 
-	void addAndExecuteCommand(IGraphCommand* cmd);
+	void add_and_execute_command(IGraphCommand* cmd);
 	void undo();
 };
