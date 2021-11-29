@@ -1,0 +1,3 @@
+translate rect[34] 3 2
+translate line[7] 3 2
+translate ellipse[e3] 3 2

@@ -1,0 +1,3 @@
+scale rect[34] 3 2
+scale line[7] 3 2
+scale ellipse[e3] 3 2
