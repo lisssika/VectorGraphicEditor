@@ -3,7 +3,7 @@
 #include"Vector2D.h"
 #include "DoubleIsEqual.h"
 
-TranslateCommand::TranslateCommand(IVectorFigure* const figure_, Vector2D dxdy_) :figure_(figure_), dxdy_(dxdy_) {}
+TranslateCommand::TranslateCommand(std::shared_ptr<IVectorFigure>& figure, Vector2D dxdy_) :figure_(figure), dxdy_(dxdy_) {}
 void TranslateCommand::redo() const {
 	figure_->translate(dxdy_);
 }
@@ -11,7 +11,7 @@ void TranslateCommand::undo() const {
 	figure_->translate({ -dxdy_.x, -dxdy_.y });
 }
 
-ScaleCommand::ScaleCommand(IVectorFigure* const figure, double sx, double sy) :figure_(figure), sx_(sx), sy_(sy) {}
+ScaleCommand::ScaleCommand(std::shared_ptr<IVectorFigure>& figure, double sx, double sy) :figure_(figure), sx_(sx), sy_(sy) {}
 void ScaleCommand::redo() const {
 	figure_->scale(sx_, sy_);
 }
@@ -23,7 +23,7 @@ void ScaleCommand::undo()const {
 	figure_->scale(1 / sx_, 1 / sy_);
 }
 
-RotateCommand::RotateCommand(IVectorFigure* const figure_, double deg_) :figure_(figure_), deg_(deg_) {}
+RotateCommand::RotateCommand(std::shared_ptr<IVectorFigure>& figure, double deg_) :figure_(figure), deg_(deg_) {}
 void RotateCommand::redo() const {
 	figure_->rotate(deg_);
 }

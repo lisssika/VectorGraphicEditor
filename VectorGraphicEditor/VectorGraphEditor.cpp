@@ -31,8 +31,8 @@ void VectorGraphEditor::execute() {
 			undo();
 		}
 		else {
-			IVectorFigure* vector_figure = scene_.get_figure_by_name(figure_name);
-			if (vector_figure == nullptr) {
+			std::shared_ptr<IVectorFigure> vector_figure = scene_.get_figure_by_name(figure_name);
+			if (!vector_figure) {
 				throw std::runtime_error("Figure with this name is not exist");
 			}
 			if (command == "translate") {
