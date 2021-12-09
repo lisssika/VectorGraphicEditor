@@ -30,7 +30,7 @@ void VectorGraphEditor::execute()
 		std::string command, figure_name;
 		pars_command_line(command_line, command, figure_name);
 		if (command == "undo") {
-			undo();
+			commander_.undo();
 		}
 		else {
 			std::shared_ptr<IVectorFigure> vector_figure = scene_.get_figure_by_name(figure_name);
@@ -39,20 +39,20 @@ void VectorGraphEditor::execute()
 			}
 			if (command == "translate") {
 				std::vector<double> dxdy = read_n_numbers(command_line, 2);
-				IGraphCommand* cmd = new TranslateCommand(vector_figure, { dxdy[0], dxdy[1] });
-				add_and_execute_command(cmd);
+				std::shared_ptr<IGraphCommand> cmd(new TranslateCommand(vector_figure, { dxdy[0], dxdy[1] }));
+				commander_.add_and_execute_command(cmd);
 			}
 			else
 				if (command == "scale") {
 					std::vector<double> sxsy = read_n_numbers(command_line, 2);
-					IGraphCommand* cmd = new ScaleCommand(vector_figure, sxsy[0], sxsy[1]);
-					add_and_execute_command(cmd);
+					std::shared_ptr<IGraphCommand> cmd(new ScaleCommand(vector_figure, sxsy[0], sxsy[1]));
+					commander_.add_and_execute_command(cmd);
 				}
 				else
 					if (command == "rotate") {
 						std::vector<double> deg = read_n_numbers(command_line, 1);
-						IGraphCommand* cmd = new RotateCommand(vector_figure, deg[0]);
-						add_and_execute_command(cmd);
+						std::shared_ptr<IGraphCommand> cmd(new RotateCommand(vector_figure, deg[0]));
+						commander_.add_and_execute_command(cmd);
 					}
 					else {
 						command_line.str("");
