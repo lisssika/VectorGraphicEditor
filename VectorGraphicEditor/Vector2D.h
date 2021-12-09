@@ -8,10 +8,12 @@ struct Vector2D {
 	Vector2D operator+(Vector2D const& p) const;
 	Vector2D operator-(Vector2D const& p) const;
 	Vector2D operator*(double a) const;
-	void rot(double deg) ;
+	void rot(double deg);
+	void scale(double sx, double sy);
 	std::string to_string() const;
 	double get_x() const;
 	double get_y() const;
+
 private:
 	double x;
 	double y;

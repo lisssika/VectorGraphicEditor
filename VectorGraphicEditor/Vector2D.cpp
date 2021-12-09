@@ -24,6 +24,12 @@ void Vector2D::rot(double deg) {
 	y = y_coordinate;
 }
 
+void Vector2D::scale(double sx, double sy)
+{
+	x *= sx;
+	y *= sy;
+}
+
 std::string Vector2D::to_string() const
 {
 	return std::to_string(x) + " " + std::to_string(y);

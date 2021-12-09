@@ -8,7 +8,7 @@ void TranslateCommand::redo() const {
 	figure_->translate(dxdy_);
 }
 void TranslateCommand::undo() const {
-	figure_->translate({ -dxdy_.x, -dxdy_.y });
+	figure_->translate({ -dxdy_.get_x(), -dxdy_.get_y() });
 }
 
 ScaleCommand::ScaleCommand(std::shared_ptr<IVectorFigure>& figure, double sx, double sy) :figure_(figure), sx_(sx), sy_(sy) {}
