@@ -2,15 +2,16 @@
 #include "Vector2D.h"
 #include <string>
 #include <fstream>
+#include <utility>
 
-IVectorFigure::IVectorFigure(std::string name) : name_(name) {}
+IVectorFigure::IVectorFigure(std::string name) : name_(std::move(name)) {}
 
 std::string IVectorFigure::get_name() const
 {
 	return name_;
 }
 
-Rect::Rect(std::string name, Vector2D const& a, Vector2D const& b) : IVectorFigure(name), a_(a), b_(b) {}
+Rect::Rect(std::string name, Vector2D const& a, Vector2D const& b) : IVectorFigure(std::move(name)), a_(a), b_(b) {}
 
 void Rect::translate(Vector2D const& dxdy) {
 	a_ = a_ + dxdy;
@@ -45,13 +46,12 @@ void Rect::rotate(double deg) {
 	b_ = center_coord + vector_cntr_b;
 }
 
-
-std::ofstream& operator<<(std::ofstream& out, Rect const& rect) {
-	out << rect.get_name() << ' ' << (dynamic_cast<Rect const&> (rect).a_) << ' ' << dynamic_cast<Rect const&> (rect).b_ << '\n';
-	return out;
+std::string Rect::to_string() const
+{
+	return name_ + " " + a_.to_string()+ " " + b_.to_string() + '\n';
 }
 
-Line::Line(std::string name_, Vector2D const& a_, Vector2D const& b_) :IVectorFigure(name_), a_(a_), b_(b_) {}
+Line::Line(const std::string& name, Vector2D const& a, Vector2D const& b) :IVectorFigure(name), a_(a), b_(b) {}
 
 void Line::translate(Vector2D const& dxdy_) {
 	a_ = a_ + dxdy_;
@@ -84,12 +84,13 @@ void Line::rotate(double deg) {
 	b_ = center_coord + vector_cntr_b;
 }
 
-std::ofstream& operator<<(std::ofstream& out, Line const& line) {
-	out << line.get_name() << ' ' << (dynamic_cast<Line const&> (line).a_) << ' ' << dynamic_cast<Line const&> (line).b_ << '\n';
-	return out;
+std::string Line::to_string() const
+{
+	return name_ + " " + a_.to_string() + " " + b_.to_string() + '\n';
 }
 
-Ellipse::Ellipse(std::string name_, Vector2D const& center_, Vector2D const& a_, Vector2D const& b_) :IVectorFigure(name_), center_(center_), a_(a_), b_(b_) {}
+Ellipse::Ellipse(std::string name_, Vector2D const& center_, Vector2D const& a_, Vector2D const& b_) :IVectorFigure(
+	std::move(name_)), center_(center_), a_(a_), b_(b_) {}
 
 void Ellipse::translate(Vector2D const& dxdy) {
 		a_ = a_ + dxdy;
@@ -115,7 +116,7 @@ void Ellipse::rotate(double deg) {
 		b_ = center_ + vector_cntr_b;
 	}
 
-	std::ofstream& operator<<(std::ofstream& out, Ellipse const& ellipse) {
-		out << ellipse.name_ << ' ' << dynamic_cast<Ellipse const&> (ellipse).center_ << ' ' << dynamic_cast<Ellipse const&> (ellipse).a_ << ' ' << dynamic_cast<Ellipse const&> (ellipse).b_ << '\n';
-		return out;
-	}
+std::string Ellipse::to_string() const
+{
+	return name_ + " " + center_.to_string() + " " + a_.to_string() + " " + b_.to_string() + '\n';
+}

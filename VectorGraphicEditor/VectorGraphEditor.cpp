@@ -1,5 +1,6 @@
 #include <string>
 #include <memory>
+#include <fstream>
 #include <utility>
 #include <sstream>
 #include "Reader.h"
@@ -19,7 +20,8 @@ VectorGraphEditor::VectorGraphEditor(
 	std::string const& commands_file_name
 ) :scene_inp_file_name_(scene_inp_file_name), scene_out_file_name_(scene_out_file_name), commands_file_name_(commands_file_name) {}
 
-void VectorGraphEditor::execute() {
+void VectorGraphEditor::execute()
+{
 	scene_.make_scene_from_file(scene_inp_file_name_);
 	std::stringstream command_line;
 	FileReader command_reader(commands_file_name_);
@@ -61,7 +63,9 @@ void VectorGraphEditor::execute() {
 		command_line.str("");
 		command_line.clear();
 	}
-	scene_.print_scene_in_file(scene_out_file_name_);
+	std::ofstream file;
+	file.open(scene_out_file_name_);
+	scene_.print_scene_in_file(file);
 }
 
 VectorGraphEditor::~VectorGraphEditor() {

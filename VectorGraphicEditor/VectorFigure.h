@@ -10,6 +10,7 @@ public:
 	virtual void scale(double sx, double sy) = 0;
 	virtual void rotate(double deg) = 0;
 	std::string get_name() const;
+	virtual std::string to_string() const = 0;
 	virtual ~IVectorFigure() = default;
 protected:
 	std::string name_;
@@ -21,7 +22,7 @@ public:
 	virtual void translate(Vector2D const& dxdy) override;
 	virtual void scale(double sx, double sy)override;
 	virtual void rotate(double deg) override;
-	friend std::ofstream& operator<<(std::ofstream& out, Rect const& rect);
+	virtual std::string to_string() const override;
 private:
 	Vector2D a_;
 	Vector2D b_;
@@ -29,11 +30,11 @@ private:
 
 class Line final : public IVectorFigure {
 public:
-	Line(std::string name_, Vector2D const& a_, Vector2D const& b_);
+	Line(const std::string& name, Vector2D const& a, Vector2D const& b);
 	virtual void translate(Vector2D const& dxdy_) override;
 	virtual void scale(double sx, double sy) override;
 	virtual void rotate(double deg) override;
-	friend std::ofstream& operator<<(std::ofstream& out, Line const& line);
+	virtual std::string to_string() const override;
 private:
 	Vector2D a_;
 	Vector2D b_;
@@ -46,8 +47,7 @@ public:
 	virtual void translate(Vector2D const& dxdy) override;
 	virtual void scale(double sx, double sy) override;
 	virtual void rotate(double deg) override;
-	friend std::ofstream& operator<<(std::ofstream& out, Ellipse const& ellipse);
-	
+	virtual std::string to_string() const override;	
 private:
 	Vector2D center_;
 	Vector2D a_;

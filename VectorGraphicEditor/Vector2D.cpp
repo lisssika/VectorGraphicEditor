@@ -2,6 +2,7 @@
 #include <cmath>
 #include "Vector2D.h"
 #include <ostream>
+#include <string>
 
 Vector2D::Vector2D(double x, double y) :x(x), y(y) {}
 Vector2D::Vector2D() : x{ 0 }, y{ 0 }{}
@@ -16,14 +17,24 @@ Vector2D Vector2D::operator*(double a) const {
 	return { x * a, y * a };
 }
 void Vector2D::rot(double deg) {
-	auto rad = deg * M_PI / 180;
-	double x_coordinate = std::round(x * cos(rad) - y * sin(rad)) * 1.e6 /1.e6;
-	double y_coordinate = std::round(x * sin(rad) + y * cos(rad) )* 1.e6 / 1.e6;
+	const auto rad = deg * M_PI / 180;
+	const double x_coordinate = std::round(x * cos(rad) - y * sin(rad)) * 1.e6 /1.e6;
+	const double y_coordinate = std::round(x * sin(rad) + y * cos(rad) )* 1.e6 / 1.e6;
 	x = x_coordinate;
 	y = y_coordinate;
 }
 
-std::ostream& operator<<(std::ostream& out, Vector2D const& vector) {
-	out << vector.x << " " << vector.y ;
-	return out;
+std::string Vector2D::to_string() const
+{
+	return std::to_string(x) + " " + std::to_string(y);
+}
+
+double Vector2D::get_x() const
+{
+	return x;
+}
+
+double Vector2D::get_y() const
+{
+	return y;
 }

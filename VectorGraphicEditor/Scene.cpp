@@ -49,32 +49,18 @@ void Scene::make_scene_from_file(std::string const& scene_file_name) {
 }
 
 std::shared_ptr<IVectorFigure> Scene::get_figure_by_name(std::string const& figure_name) {
-	auto vector_figure_it = scene_.find(figure_name);
+	const auto vector_figure_it = scene_.find(figure_name);
 	if (vector_figure_it != scene_.end()) {
 		return vector_figure_it->second;
 	}
 	else return nullptr;
 }
 
-std::ofstream& operator<< (std::ofstream& out, Scene const& scene) {
-	for (auto& figure : scene.scene_) {
-		if (typeid(*(figure.second)) == typeid(Ellipse)) {
-			out << *dynamic_cast<Ellipse*>(figure.second);
-		}
-		else
-			if (typeid(*figure.secon).name() == typeid(Line).name()) {
-				out << *dynamic_cast<Line*>(figure.second);
-			}
-			else
-				if (typeid(*figure.second).name() == typeid(Rect).name()) {
-					out << *dynamic_cast<Rect*>(figure.second);
-				}
-	}
-	return out;
-}
-void Scene::print_scene_in_file(std::string const& file_out_name) const
+void Scene::print_scene_in_file(std::ofstream& file) const
 {
-	std::ofstream file_output;
-	file_output.open(file_out_name);
-	file_output << *this;
+	for(auto& figure:scene_)
+	{
+		file << figure.second->to_string();
+	}
 }
+
