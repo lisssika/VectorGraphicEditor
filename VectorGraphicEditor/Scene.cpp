@@ -3,12 +3,10 @@
 #include <string>
 #include <vector>
 #include <stdexcept>
-#include "Reader.h"
 #include "VectorFigure.h"
-#include <sstream>
 #include <memory>
 
-void Scene::add_figure(const std::string& name, std::shared_ptr<IVectorFigure> figure)
+void Scene::add_figure(const std::string& name, const std::shared_ptr<IVectorFigure>& figure)
 {
 	scene_.insert(std::make_pair(name, figure));
 }

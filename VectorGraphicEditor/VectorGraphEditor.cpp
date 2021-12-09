@@ -22,55 +22,14 @@ VectorGraphEditor::VectorGraphEditor(
 
 void VectorGraphEditor::execute()
 {
-	fill_scene_from_file(scene_inp_file_name_);
-	std::stringstream command_line;
-	FileReader command_reader(commands_file_name_);
-	while (command_reader.read_next_line(command_line))
-	{
-		std::string command, figure_name;
-		pars_command_line(command_line, command, figure_name);
-		if (command == "undo") {
-			commander_.undo();
-		}
-		else {
-			std::shared_ptr<IVectorFigure> vector_figure = scene_.get_figure_by_name(figure_name);
-			if (!vector_figure) {
-				throw std::runtime_error("Figure with this name is not exist");
-			}
-			if (command == "translate") {
-				std::vector<double> dxdy = read_n_numbers(command_line, 2);
-				std::shared_ptr<IGraphCommand> cmd(new TranslateCommand(vector_figure, { dxdy[0], dxdy[1] }));
-				commander_.add_and_execute_command(cmd);
-			}
-			else
-				if (command == "scale") {
-					std::vector<double> sxsy = read_n_numbers(command_line, 2);
-					std::shared_ptr<IGraphCommand> cmd(new ScaleCommand(vector_figure, sxsy[0], sxsy[1]));
-					commander_.add_and_execute_command(cmd);
-				}
-				else
-					if (command == "rotate") {
-						std::vector<double> deg = read_n_numbers(command_line, 1);
-						std::shared_ptr<IGraphCommand> cmd(new RotateCommand(vector_figure, deg[0]));
-						commander_.add_and_execute_command(cmd);
-					}
-					else {
-						command_line.str("");
-						command_line.clear();
-						throw std::runtime_error("This command is not exist");
-					}
-		}
-		command_line.str("");
-		command_line.clear();
-	}
-	std::ofstream file;
-	file.open(scene_out_file_name_);
-	file << scene_.to_string();
+	fill_scene_from_file();
+	read_and_exec_commands();
+	print_scene_into_file();
 }
 
-void VectorGraphEditor::fill_scene_from_file(std::string const& scene_file_name)
+void VectorGraphEditor::fill_scene_from_file()
 {
-	FileReader scene_file(scene_file_name);
+	FileReader scene_file(scene_inp_file_name_);
 	std::stringstream figure_line;
 	const std::string rect_str("rect");
 	const std::string line_str("line");
@@ -127,5 +86,63 @@ void VectorGraphEditor::fill_scene_from_file(std::string const& scene_file_name)
 		}
 		figure_line.str("");
 		figure_line.clear();
+	}
+}
+
+void VectorGraphEditor::read_and_exec_commands()
+{
+	std::stringstream command_line;
+	FileReader command_reader(commands_file_name_);
+	while (command_reader.read_next_line(command_line))
+	{
+		std::string command, figure_name;
+		pars_command_line(command_line, command, figure_name);
+		if (command == "undo") {
+			commander_.undo();
+		}
+		else {
+			std::shared_ptr<IVectorFigure> vector_figure = scene_.get_figure_by_name(figure_name);
+			if (!vector_figure) {
+				throw std::runtime_error("Figure with this name is not exist");
+			}
+			if (command == "translate") {
+				std::vector<double> dxdy = read_n_numbers(command_line, 2);
+				std::shared_ptr<IGraphCommand> cmd(new TranslateCommand(vector_figure, { dxdy[0], dxdy[1] }));
+				commander_.add_and_execute_command(cmd);
+			}
+			else
+				if (command == "scale") {
+					std::vector<double> sxsy = read_n_numbers(command_line, 2);
+					std::shared_ptr<IGraphCommand> cmd(new ScaleCommand(vector_figure, sxsy[0], sxsy[1]));
+					commander_.add_and_execute_command(cmd);
+				}
+				else
+					if (command == "rotate") {
+						std::vector<double> deg = read_n_numbers(command_line, 1);
+						std::shared_ptr<IGraphCommand> cmd(new RotateCommand(vector_figure, deg[0]));
+						commander_.add_and_execute_command(cmd);
+					}
+					else {
+						command_line.str("");
+						command_line.clear();
+						throw std::runtime_error("This command is not exist");
+					}
+		}
+		command_line.str("");
+		command_line.clear();
+	}
+}
+
+void VectorGraphEditor::print_scene_into_file() const
+{
+	std::ofstream file(scene_out_file_name_);
+	if(file)
+	{
+		file << scene_.to_string();
+		file.close();
+	}
+	else
+	{
+		throw std::runtime_error("output file for scene is not open");
 	}
 }

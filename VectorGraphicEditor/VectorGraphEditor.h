@@ -1,6 +1,5 @@
 #pragma once
 #include <string>
-
 #include "Scene.h"
 #include "Commander.h"
 
@@ -18,7 +17,9 @@ public:
 
 private:
 	std::string scene_inp_file_name_, scene_out_file_name_, commands_file_name_;
-	void fill_scene_from_file(std::string const& scene_file_name);
+	void fill_scene_from_file();
+	void read_and_exec_commands();
+	void print_scene_into_file() const;
 	Scene scene_;
 	Commander commander_;
 };
