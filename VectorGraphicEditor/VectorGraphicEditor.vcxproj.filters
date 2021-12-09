@@ -19,15 +19,18 @@
     <Filter Include="Файлы заголовков\Figures">
       <UniqueIdentifier>{7d82cf65-90bc-4051-8875-f91d93244120}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Исходные файлы\Commands">
+      <UniqueIdentifier>{d6f2cf2c-91b6-47a3-b3de-49f44252b007}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Commands">
+      <UniqueIdentifier>{655b46f5-693b-4809-9080-2980915eddc5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Reader.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Vector2D.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="GraphCommand.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
@@ -57,12 +60,21 @@
     <ClInclude Include="Ellipse.h">
       <Filter>Файлы заголовков\Figures</Filter>
     </ClInclude>
+    <ClInclude Include="RotateCommand.h">
+      <Filter>Файлы заголовков\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="ScaleCommand.h">
+      <Filter>Файлы заголовков\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="TranslateCommand.h">
+      <Filter>Файлы заголовков\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphCommand.h">
+      <Filter>Файлы заголовков\Commands</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="GraphCommand.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="VectorGraphEditor.cpp">
@@ -94,6 +106,15 @@
     </ClCompile>
     <ClCompile Include="VectorFigure.cpp">
       <Filter>Исходные файлы\Figures</Filter>
+    </ClCompile>
+    <ClCompile Include="ScaleCommandd.cpp">
+      <Filter>Исходные файлы\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="RotateCommand.cpp">
+      <Filter>Исходные файлы\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="TranslateCommand.cpp">
+      <Filter>Исходные файлы\Commands</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
