@@ -3,7 +3,7 @@
 #include "Vector2D.h"
 #include <string>
 #include <fstream>
-#include <utility>
+#include "DoubleIsEqual.h"
 
 Line::Line(const std::string& name, Vector2D const& a, Vector2D const& b) :IVectorFigure(name), a_(a), b_(b) {}
 
@@ -12,7 +12,7 @@ void Line::translate(Vector2D const& dxdy_) {
 	b_ = b_ + dxdy_;
 }
 void Line::scale(double sx, double sy) {
-	if (sx * sy != 0) {
+	if (!double_is_equal(sx * sy, 0)) {
 		Vector2D centr = (a_ + b_) * 0.5;
 		Vector2D centr_to_a = a_ - centr;
 		Vector2D centr_to_b = b_ - centr;

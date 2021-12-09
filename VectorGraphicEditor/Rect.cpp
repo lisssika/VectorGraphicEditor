@@ -4,6 +4,8 @@
 #include <string>
 #include <fstream>
 #include <utility>
+#include "DoubleIsEqual.h"
+
 std::string IVectorFigure::get_name() const
 {
 	return name_;
@@ -17,7 +19,7 @@ void Rect::translate(Vector2D const& dxdy) {
 }
 
 void Rect::scale(double sx, double sy) {
-	if (sx * sy != 0) {
+	if (!double_is_equal(sx * sy, 0)) {
 		const Vector2D centr = (a_ + b_) * 0.5;
 		Vector2D centr_to_a = a_ - centr;
 		Vector2D centr_to_b = b_ - centr;

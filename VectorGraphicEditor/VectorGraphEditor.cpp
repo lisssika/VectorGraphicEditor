@@ -7,12 +7,16 @@
 
 #include "Scene.h"
 #include "VectorGraphEditor.h"
-#include "GraphCommand.h"
 
 #include "VectorFigure.h"
 #include "Ellipse.h"
 #include "Line.h"
 #include "Rect.h"
+
+#include "GraphCommand.h"
+#include "RotateCommand.h"
+#include "ScaleCommand.h"
+#include "TranslateCommand.h"
 
 
 

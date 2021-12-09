@@ -4,6 +4,7 @@
 #include <string>
 #include <fstream>
 #include <utility>
+#include "DoubleIsEqual.h"
 
 Ellipse::Ellipse(std::string name_, Vector2D const& center_, Vector2D const& a_, Vector2D const& b_) :IVectorFigure(
 	std::move(name_)), center_(center_), a_(a_), b_(b_) {}
@@ -14,7 +15,7 @@ void Ellipse::translate(Vector2D const& dxdy) {
 	center_ = center_ + dxdy;
 }
 void Ellipse::scale(double sx, double sy) {
-	if (sx * sy != 0) {
+	if ( !double_is_equal(sx*sy, 0)) {
 		a_ = center_ + Vector2D{ (a_ - center_).get_x() * sx, (a_ - center_).get_y() * sy };
 		b_ = center_ + Vector2D{ (b_ - center_).get_x() * sx, (b_ - center_).get_y() * sy };
 	}
