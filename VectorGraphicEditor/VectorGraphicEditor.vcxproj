@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Commander.h" />
     <ClInclude Include="DoubleIsEqual.h" />
     <ClInclude Include="GraphCommand.h" />
     <ClInclude Include="VectorGraphEditor.h" />
@@ -148,6 +149,7 @@
     <ClInclude Include="VectorFigure.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Commander.cpp" />
     <ClCompile Include="DoubleIsEqual.cpp" />
     <ClCompile Include="GraphCommand.cpp" />
     <ClCompile Include="main.cpp" />

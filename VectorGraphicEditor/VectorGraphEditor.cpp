@@ -67,21 +67,3 @@ void VectorGraphEditor::execute()
 	file.open(scene_out_file_name_);
 	scene_.print_scene_in_file(file);
 }
-
-VectorGraphEditor::~VectorGraphEditor() {
-	for (auto& command : history_) {
-		delete command;
-	}
-}
-
-void VectorGraphEditor::add_and_execute_command(IGraphCommand* cmd) {
-	history_.push_back(cmd);
-	cmd->redo();
-}
-void VectorGraphEditor::undo() {
-	if (history_.empty()) return;
-	auto cmd = history_.back();
-	cmd->undo();
-	delete cmd;
-	history_.pop_back();
-}
