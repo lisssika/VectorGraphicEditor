@@ -6,9 +6,9 @@
 #include "VectorFigure.h"
 class Scene final {
 public:
-	void make_scene_from_file(std::string const& scene_file_name);
+	void add_figure(const std::string& name, std::shared_ptr<IVectorFigure> figure);
 	std::shared_ptr<IVectorFigure> get_figure_by_name(std::string const& figure_name);
-	void print_scene_in_file(std::ofstream& file) const;
+	std::string to_string() const;
 private:
 	std::map<std::string, std::shared_ptr<IVectorFigure>> scene_;
 };

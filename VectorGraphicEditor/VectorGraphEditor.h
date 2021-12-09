@@ -18,6 +18,7 @@ public:
 
 private:
 	std::string scene_inp_file_name_, scene_out_file_name_, commands_file_name_;
+	void fill_scene_from_file(std::string const& scene_file_name);
 	Scene scene_;
 	Commander commander_;
 };

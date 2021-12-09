@@ -22,7 +22,7 @@ VectorGraphEditor::VectorGraphEditor(
 
 void VectorGraphEditor::execute()
 {
-	scene_.make_scene_from_file(scene_inp_file_name_);
+	fill_scene_from_file(scene_inp_file_name_);
 	std::stringstream command_line;
 	FileReader command_reader(commands_file_name_);
 	while (command_reader.read_next_line(command_line))
@@ -65,5 +65,67 @@ void VectorGraphEditor::execute()
 	}
 	std::ofstream file;
 	file.open(scene_out_file_name_);
-	scene_.print_scene_in_file(file);
+	file << scene_.to_string();
+}
+
+void VectorGraphEditor::fill_scene_from_file(std::string const& scene_file_name)
+{
+	FileReader scene_file(scene_file_name);
+	std::stringstream figure_line;
+	const std::string rect_str("rect");
+	const std::string line_str("line");
+	const std::string ellipse_str("ellipse");
+
+	while (scene_file.read_next_line(figure_line)) {
+		std::string str;
+		figure_line >> str;
+		std::string figure_type;
+		std::string figure_id;
+		if (!read_figure_type_and_id(str, figure_type, figure_id)) {
+			throw std::runtime_error("Invalid data format in the scene file");
+		}
+		std::string figure_name = figure_type + "[" + figure_id + "]";
+		if (figure_type == rect_str) {
+			std::vector<double> args = read_n_numbers(figure_line, 4);
+			std::shared_ptr<IVectorFigure> rect(
+				new Rect{
+					figure_name,
+					{args[0], args[1]},
+					{args[2], args[3]}
+				}
+			);
+			scene_.add_figure(figure_name, rect);
+		}
+		else if (figure_type == line_str) {
+			std::vector<double> args = read_n_numbers(figure_line, 4);
+			std::shared_ptr<IVectorFigure> line(
+				new Line{
+					figure_name,
+					{args[0], args[1]},
+					{args[2], args[3]}
+				}
+			);
+			scene_.add_figure(figure_name, line);
+		}
+		else if (figure_type == ellipse_str) {
+			std::vector<double> args = read_n_numbers(figure_line, 6);
+			std::shared_ptr <IVectorFigure > ellipse(
+				new Ellipse{
+					figure_name,
+					{args[0], args[1]},
+					{args[2], args[3]},
+					{args[4], args[5]},
+				}
+			);
+			scene_.add_figure(figure_name, ellipse);
+		}
+		else
+		{
+			figure_line.str("");
+			figure_line.clear();
+			throw std::runtime_error("the unknown figure type");
+		}
+		figure_line.str("");
+		figure_line.clear();
+	}
 }
