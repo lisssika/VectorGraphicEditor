@@ -141,7 +141,11 @@
   <ItemGroup>
     <ClInclude Include="Commander.h" />
     <ClInclude Include="DoubleIsEqual.h" />
+    <ClInclude Include="Ellipse.h" />
     <ClInclude Include="GraphCommand.h" />
+    <ClInclude Include="Line.h" />
+    <ClInclude Include="Rect.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="VectorGraphEditor.h" />
     <ClInclude Include="Reader.h" />
     <ClInclude Include="Scene.h" />
@@ -151,13 +155,19 @@
   <ItemGroup>
     <ClCompile Include="Commander.cpp" />
     <ClCompile Include="DoubleIsEqual.cpp" />
+    <ClCompile Include="Ellipse_.cpp" />
     <ClCompile Include="GraphCommand.cpp" />
+    <ClCompile Include="Line.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Reader.cpp" />
+    <ClCompile Include="Rect.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Vector2D.cpp" />
     <ClCompile Include="VectorFigure.cpp" />
     <ClCompile Include="VectorGraphEditor.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="VectorGraphicEditor.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

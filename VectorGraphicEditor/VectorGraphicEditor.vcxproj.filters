@@ -13,11 +13,14 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Исходные файлы\Figures">
+      <UniqueIdentifier>{4cfe710c-dc65-42d1-9b10-ca20ecd68d28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Figures">
+      <UniqueIdentifier>{7d82cf65-90bc-4051-8875-f91d93244120}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="VectorFigure.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="Reader.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
@@ -39,6 +42,21 @@
     <ClInclude Include="Commander.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Line.h">
+      <Filter>Файлы заголовков\Figures</Filter>
+    </ClInclude>
+    <ClInclude Include="Rect.h">
+      <Filter>Файлы заголовков\Figures</Filter>
+    </ClInclude>
+    <ClInclude Include="VectorFigure.h">
+      <Filter>Файлы заголовков\Figures</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellipse.h">
+      <Filter>Файлы заголовков\Figures</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -59,14 +77,28 @@
     <ClCompile Include="Vector2D.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="VectorFigure.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="DoubleIsEqual.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Commander.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="Rect.cpp">
+      <Filter>Исходные файлы\Figures</Filter>
+    </ClCompile>
+    <ClCompile Include="Ellipse_.cpp">
+      <Filter>Исходные файлы\Figures</Filter>
+    </ClCompile>
+    <ClCompile Include="Line.cpp">
+      <Filter>Исходные файлы\Figures</Filter>
+    </ClCompile>
+    <ClCompile Include="VectorFigure.cpp">
+      <Filter>Исходные файлы\Figures</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="VectorGraphicEditor.rc">
+      <Filter>Файлы ресурсов</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

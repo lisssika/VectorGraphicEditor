@@ -1,13 +1,20 @@
 #include <string>
 #include <memory>
 #include <fstream>
-#include <utility>
 #include <sstream>
+
 #include "Reader.h"
-#include "VectorFigure.h"
-#include "GraphCommand.h"
+
 #include "Scene.h"
 #include "VectorGraphEditor.h"
+#include "GraphCommand.h"
+
+#include "VectorFigure.h"
+#include "Ellipse.h"
+#include "Line.h"
+#include "Rect.h"
+
+
 
 void pars_command_line(std::stringstream& command_line, std::string& command, std::string& figure_name) {
 	command_line >> command;
