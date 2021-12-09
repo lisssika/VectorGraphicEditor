@@ -26,16 +26,16 @@ void Scene::make_scene_from_file(std::string const& scene_file_name) {
 		std::string figure_name = figure_type + "[" + figure_id + "]";
 		if (figure_type == rect_str) {
 			std::vector<double> args = read_n_numbers(figure_line, 4);
-			scene_.insert(std::pair<std::string, IVectorFigure*>(figure_name, new Rect{ figure_name, {args[0], args[1]}, {args[2], args[3]} }));
+			scene_.insert(std::pair<std::string, std::shared_ptr<IVectorFigure>>(figure_name, new Rect{ figure_name, {args[0], args[1]}, {args[2], args[3]} }));
 
 		}
 		else if (figure_type == line_str) {
 			std::vector<double> args = read_n_numbers(figure_line, 4);
-			scene_.insert(std::pair<std::string, IVectorFigure*>(figure_name, new Line{ figure_name, {args[0], args[1]}, {args[2], args[3]} }));
+			scene_.insert(std::pair<std::string, std::shared_ptr<IVectorFigure>>(figure_name, new Line{ figure_name, {args[0], args[1]}, {args[2], args[3]} }));
 		}
 		else if (figure_type == ellipse_str) {
 			std::vector<double> args = read_n_numbers(figure_line, 6);
-			scene_.insert(std::pair<std::string, IVectorFigure*>(figure_name, new Ellipse{ figure_name, {args[0], args[1]}, {args[2], args[3]}, {args[4], args[5]} }));
+			scene_.insert(std::pair<std::string, std::shared_ptr<IVectorFigure>>(figure_name, new Ellipse{ figure_name, {args[0], args[1]}, {args[2], args[3]}, {args[4], args[5]} }));
 		}
 		else
 		{
