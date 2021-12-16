@@ -5,7 +5,7 @@
 #include "GraphCommand.h"
 #include <memory>
 
-class Commander
+class Commander final
 {
 public:
 	void add_and_execute_command(const std::shared_ptr<IGraphCommand>& cmd);

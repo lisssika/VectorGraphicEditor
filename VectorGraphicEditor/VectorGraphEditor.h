@@ -22,4 +22,8 @@ private:
 	void print_scene_into_file() const;
 	Scene scene_;
 	Commander commander_;
+
+	static std::string rect_str_;
+	static std::string line_str_;
+	static std::string ellipse_str_;
 };

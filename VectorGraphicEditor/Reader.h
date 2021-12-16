@@ -8,10 +8,10 @@
 class FileReader final{
 public:
 	FileReader(std::string const& file_name);
-	~FileReader();
 	bool read_next_line(std::stringstream& line);
-protected:
+private:
 	std::ifstream my_file;
+	std::string str;
 };
 
 std::vector<double> read_n_numbers(std::stringstream& str, size_t n);

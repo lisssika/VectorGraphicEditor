@@ -18,7 +18,9 @@
 #include "ScaleCommand.h"
 #include "TranslateCommand.h"
 
-
+std::string VectorGraphEditor::rect_str_{ "rect" };
+std::string VectorGraphEditor::line_str_{ "line" };
+std::string VectorGraphEditor::ellipse_str_{ "ellipse" };
 
 void pars_command_line(std::stringstream& command_line, std::string& command, std::string& figure_name) {
 	command_line >> command;
@@ -42,9 +44,6 @@ void VectorGraphEditor::fill_scene_from_file()
 {
 	FileReader scene_file(scene_inp_file_name_);
 	std::stringstream figure_line;
-	const std::string rect_str("rect");
-	const std::string line_str("line");
-	const std::string ellipse_str("ellipse");
 
 	while (scene_file.read_next_line(figure_line)) {
 		std::string str;
@@ -55,7 +54,7 @@ void VectorGraphEditor::fill_scene_from_file()
 			throw std::runtime_error("Invalid data format in the scene file");
 		}
 		std::string figure_name = figure_type + "[" + figure_id + "]";
-		if (figure_type == rect_str) {
+		if (figure_type == rect_str_) {
 			std::vector<double> args = read_n_numbers(figure_line, 4);
 			std::shared_ptr<IVectorFigure> rect(
 				new Rect{
@@ -66,7 +65,7 @@ void VectorGraphEditor::fill_scene_from_file()
 			);
 			scene_.add_figure(figure_name, rect);
 		}
-		else if (figure_type == line_str) {
+		else if (figure_type == line_str_) {
 			std::vector<double> args = read_n_numbers(figure_line, 4);
 			std::shared_ptr<IVectorFigure> line(
 				new Line{
@@ -77,7 +76,7 @@ void VectorGraphEditor::fill_scene_from_file()
 			);
 			scene_.add_figure(figure_name, line);
 		}
-		else if (figure_type == ellipse_str) {
+		else if (figure_type == ellipse_str_) {
 			std::vector<double> args = read_n_numbers(figure_line, 6);
 			std::shared_ptr <IVectorFigure > ellipse(
 				new Ellipse{
