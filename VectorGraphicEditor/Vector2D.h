@@ -13,8 +13,11 @@ struct Vector2D {
 	std::string to_string() const;
 	double get_x() const;
 	double get_y() const;
+	bool operator==(Vector2D const& p) const;
 
 private:
 	double x;
 	double y;
+
+	std::string to_string(double number) const;
 };

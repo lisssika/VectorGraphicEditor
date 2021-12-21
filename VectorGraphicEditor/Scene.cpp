@@ -24,8 +24,7 @@ std::string Scene::to_string() const
 	std::string str_scene;
 	for (auto& figure : scene_)
 	{
-		str_scene+= figure.second->to_string();
+		str_scene+= figure.second->to_string()+'\n';
 	}
 	return str_scene;
 }
-

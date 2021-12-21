@@ -1,7 +1,5 @@
 #pragma once
-#include <sstream>
 #include "Reader.h"
-#include "VectorFigure.h"
 #include "GraphCommand.h"
 #include <memory>
 

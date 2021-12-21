@@ -9,6 +9,7 @@ public:
 	virtual void scale(double sx, double sy) override;
 	virtual void rotate(double deg) override;
 	virtual std::string to_string() const override;
+	bool operator==(Line const& another) const;
 private:
 	Vector2D a_;
 	Vector2D b_;

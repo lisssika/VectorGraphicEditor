@@ -10,6 +10,7 @@ public:
 	virtual void scale(double sx, double sy) override;
 	virtual void rotate(double deg) override;
 	virtual std::string to_string() const override;
+	bool operator==(Ellipse const& another);
 private:
 	Vector2D center_;
 	Vector2D a_;

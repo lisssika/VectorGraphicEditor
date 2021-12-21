@@ -46,5 +46,14 @@ void Rect::rotate(double deg) {
 
 std::string Rect::to_string() const
 {
-	return name_ + " " + a_.to_string() + " " + b_.to_string() + '\n';
+	return name_ + " " + a_.to_string() + " " + b_.to_string();
+}
+
+bool Rect::operator==(Rect const& another) const
+{
+	return (
+		name_ == another.name_ &&
+		a_ == another.a_ &&
+		b_ == another.b_
+		);
 }

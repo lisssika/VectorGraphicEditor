@@ -35,5 +35,15 @@ void Ellipse::rotate(double deg) {
 
 std::string Ellipse::to_string() const
 {
-	return name_ + " " + center_.to_string() + " " + a_.to_string() + " " + b_.to_string() + '\n';
+	return name_ + " " + center_.to_string() + " " + a_.to_string() + " " + b_.to_string();
+}
+
+bool Ellipse::operator==(Ellipse const& another)
+{
+	return (
+		name_ == another.name_ &&
+		center_ == another.center_ &&
+		a_ == another.a_ &&
+		b_ == another.b_
+		);
 }
