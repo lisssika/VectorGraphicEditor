@@ -216,8 +216,8 @@ TEST (Commander, add)
 {
 	Commander commander;
 	std::shared_ptr<IVectorFigure> rect = std::make_shared<Rect>("r", Vector2D{ 1, 2 }, Vector2D{ 3, 4 });
-	std::shared_ptr<IGraphCommand> translate = std::make_shared<TranslateCommand>(rect, Vector2D(2, 3));
-	commander.add_and_execute_command(translate);
+	std::unique_ptr<IGraphCommand> translate = std::make_unique<TranslateCommand>(rect, Vector2D(2, 3));
+	commander.add_and_execute_command(std::move(translate));
 	Rect translated_rect("r", Vector2D{ 3, 5 }, Vector2D{ 5, 7 });
 	EXPECT_EQ(rect.get()->to_string(), translated_rect.to_string());
 }
@@ -225,8 +225,8 @@ TEST(Commander, undo)
 {
 	Commander commander;
 	std::shared_ptr<IVectorFigure> rect = std::make_shared<Rect>("r", Vector2D{ 1, 2 }, Vector2D{ 3, 4 });
-	std::shared_ptr<IGraphCommand> translate = std::make_shared<TranslateCommand>(rect, Vector2D(2, 3));
-	commander.add_and_execute_command(translate);
+	std::unique_ptr<IGraphCommand> translate = std::make_unique<TranslateCommand>(rect, Vector2D(2, 3));
+	commander.add_and_execute_command(std::move(translate));
 	Rect translated_rect("r", Vector2D{ 3, 5 }, Vector2D{ 5, 7 });
 	Rect original_rect("r", Vector2D{ 1, 2 }, Vector2D{ 3, 4 });
 

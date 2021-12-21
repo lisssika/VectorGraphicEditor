@@ -117,20 +117,22 @@ void VectorGraphEditor::read_and_exec_commands()
 			}
 			if (command == "translate") {
 				std::vector<double> dxdy = read_n_numbers(command_line, 2);
-				std::shared_ptr<IGraphCommand> cmd(new TranslateCommand(vector_figure, { dxdy[0], dxdy[1] }));
-				commander_.add_and_execute_command(cmd);
+				Vector2D translate_vec{ dxdy[0], dxdy[1] };
+				std::unique_ptr<IGraphCommand> cmd = 
+					std::make_unique<TranslateCommand>(vector_figure, translate_vec);
+				commander_.add_and_execute_command(std::move(cmd));
 			}
 			else
 				if (command == "scale") {
 					std::vector<double> sxsy = read_n_numbers(command_line, 2);
-					std::shared_ptr<IGraphCommand> cmd(new ScaleCommand(vector_figure, sxsy[0], sxsy[1]));
-					commander_.add_and_execute_command(cmd);
+					std::unique_ptr<IGraphCommand> cmd = std::make_unique<ScaleCommand>(vector_figure, sxsy[0], sxsy[1]);
+					commander_.add_and_execute_command(std::move(cmd));
 				}
 				else
 					if (command == "rotate") {
 						std::vector<double> deg = read_n_numbers(command_line, 1);
-						std::shared_ptr<IGraphCommand> cmd(new RotateCommand(vector_figure, deg[0]));
-						commander_.add_and_execute_command(cmd);
+						std::unique_ptr<IGraphCommand> cmd = std::make_unique < RotateCommand>(vector_figure, deg[0]);
+						commander_.add_and_execute_command(std::move(cmd));
 					}
 					else {
 						command_line.str("");

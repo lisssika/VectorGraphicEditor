@@ -6,9 +6,9 @@
 class Commander final
 {
 public:
-	void add_and_execute_command(const std::shared_ptr<IGraphCommand>& cmd);
+	void add_and_execute_command(std::unique_ptr<IGraphCommand>cmd);
 	void undo();
 private:
-	std::vector< std::shared_ptr<IGraphCommand>> history_;
+	std::vector< std::unique_ptr<IGraphCommand>> history_;
 };
 
